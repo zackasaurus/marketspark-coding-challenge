@@ -1,28 +1,36 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
-const postsRoute = require('./routes/posts');
+const postsRoute = require('./routes/api/posts');
+const personRoute = require('./routes/api/person');
+const workerRoute = require('./routes/api/worker');
 const cors = require('cors');
 
 // Env
 require('dotenv/config');
 
 // Middleware
-app.use(cors());
 
+// CORS
+app.use(cors());
+// JSON
 app.use(express.json());
 
-// app.use(bodyParser.json());
-// app.use(express.urlencoded({ extended: true }));
+// API Route
+app.use('/api/person', personRoute);
 
-app.use('/posts', postsRoute);
+app.use('/api/posts', postsRoute);
+
+app.use('/api/worker', workerRoute);
+
 // Routes
 app.get('/', (req, res) => {
   res.send('Test');
 });
 
 // Port
-app.listen(3000);
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.info(`Server had started on ${PORT}`));
 
 // Connect to DB
 mongoose.connect(process.env.DB_CONNECTION, { useNewUrlParser: true }, () =>
