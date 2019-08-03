@@ -2,8 +2,10 @@ const express = require('express');
 const request = require('request');
 const rp = require('request-promise');
 const Scrape = require('../../models/Scrape');
-const router = express.Router();
+const Post = require('../../models/Post');
 
+const router = express.Router();
+const mongoose = require('mongoose');
 // Get Request -> get html from another website
 router.get('/', (req, res) => {
   let startDate = Date.now();
@@ -57,30 +59,12 @@ router.post('/', (req, res) => {
         const Performance = `${(Date.now() - startDate) / 1000} seconds`;
         const HTML = `${data}`;
 
-        // res.write('Hello');
         const scrape = new Scrape({
           _URL: URL,
           _HTML: HTML
         });
         const savedScrape = await scrape.save();
-        // const savedScrape = await scrape.save(function(err) {
-        //   if (err) {
-        //     console.log(err);
-        //     return;
-        //   }
-        // });
-
-        console.log(savedScrape);
         res.json(savedScrape);
-        // console.log(savedScrape);
-        // res.send({ URL, Performance, HTML });
-
-        // try {
-        //     const savedPost = await post.save();
-        //     res.json(savedPost);
-        //   } catch (err) {
-        //     res.json({ message: err });
-        //   }
         res.end();
       } catch (err) {
         res.json({ message: err });
