@@ -1,13 +1,19 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
+const postsRoute = require('./routes/posts');
+
+// Env
 require('dotenv/config');
 
 // Middleware
-// app.use('/', () => {
-//   console.log('Test');
-// });
 
+app.use(express.json());
+
+// app.use(bodyParser.json());
+// app.use(express.urlencoded({ extended: true }));
+
+app.use('/posts', postsRoute);
 // Routes
 app.get('/', (req, res) => {
   res.send('Test');
