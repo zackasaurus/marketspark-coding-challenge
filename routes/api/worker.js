@@ -10,25 +10,41 @@ const mongoose = require('mongoose');
 // Get Request -> get html from another website
 router.get('/', (req, res) => {
   let startDate = Date.now();
+  console.log('test');
   if (req.query.href) {
     const URL = req.query.href;
+
+    console.log('test');
+    //  Scrape HTML data
     const options = {
       url: URL,
       json: true
     };
-    rp(options).then(data => {
-      try {
-        res.write(`Performance: ${(Date.now() - startDate) / 1000} seconds. `);
-        const HTML = res.write(`Data: ${data}`);
-        const scrape = new Scrape({
-          URL: URL,
-          HTML: HTML
-        });
-        res.end();
-      } catch (err) {
-        res.json({ message: err });
-      }
-    });
+    console.log('test');
+    rp(options)
+      .then(async data => {
+        // console.log('test');
+        try {
+          //   res.write(
+          //     `Performance: ${(Date.now() - startDate) / 1000} seconds. `
+          //   );
+          //   const HTML = res.write(`Data: ${data}`);
+          const scrape = new Scrape({
+            _url: URL,
+            _performance: `${(Date.now() - startDate) / 1000}s`,
+            _html: data
+          });
+          const savedScrape = await scrape.save();
+          res.json(savedScrape);
+          res.end();
+        } catch (err) {
+          res.json({ message: err });
+        }
+      })
+      .catch(err => {
+        console.log('Error', err);
+        res.send({ message: err });
+      });
   } else {
     res.send('N/A');
   }

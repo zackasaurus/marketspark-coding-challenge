@@ -13,6 +13,7 @@ require('dotenv/config');
 
 // CORS
 app.use(cors());
+
 // JSON
 app.use(express.json());
 

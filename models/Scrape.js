@@ -1,17 +1,21 @@
 const mongoose = require('mongoose');
 
 const ScrapeSchema = mongoose.Schema({
-  _URL: {
+  _url: {
+    type: String,
+    required: true
+  },
+  _performance: {
     type: String,
     required: true
   },
 
-  _HTML: {
+  _html: {
     type: String,
     required: true
   },
 
-  date: {
+  _date: {
     type: Date,
     default: Date.now
   }
