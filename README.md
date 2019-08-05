@@ -1,22 +1,19 @@
 API Endpoints
 
-1. Add to the Queue & get results of job:
-   http://localhost:3000/api/worker?href=<URL>
+1. Get results of job:
+   https://webscraper-rest-api.herokuapp.com/api/worker?href=<URL>
 
-Example:
-http://localhost:3000/api/worker?href=http://google.com/
+   Example:
+   https://webscraper-rest-api.herokuapp.com/api/worker?href=http://google.com/
 
-2. Check Status of Queue
-   http://localhost:3000/api/queue/status
+2. Get specific job from database
+   https://webscraper-rest-api.herokuapp.com/api/worker/:id
 
-3. Get specific job from database
-   http://localhost:3000/api/worker/:id
+   Example:
+   https://webscraper-rest-api.herokuapp.com/api/worker/5d477fb5931015edd033ed8f
 
-4. Get database
-   http://localhost:3000/api/worker/all
-
-Example:
-http://localhost:3000/api/worker/5d474463b680f3eb0ba29fc5
+3. Get all jobs in database
+   https://webscraper-rest-api.herokuapp.com/api/worker/all
 
 Coding Challenge
 
